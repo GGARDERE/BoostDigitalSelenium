@@ -57,7 +57,7 @@ public class PremierTest {
 		EcranCatalogueProduits ecranCatatalogueProduits = ecranPropositionCommerciales.selectionnerBouttonPLUS(nom_Propal);
 		EcranListeEtablissement ecranListeEtablissement = ecranCatatalogueProduits.selectionnerOffreSolutionEtReferencement();
 		List<String> listRetournee =ecranListeEtablissement.verificationElementTableau();
-		List<String> listeRefTableau = BoiteOutils._loadFile("src/main/resources/filesRessources/listeEtablissementJDD1");
+		List<String> listeRefTableau = BoiteOutils._loadFile("src/main/java/filesRessources/listeEtablissementJDD1");
 		Assert.assertEquals(listeRefTableau, listRetournee);
 		EcranLocaliteEtablissement ecranLocaliteEtablissement =ecranListeEtablissement.selectionnerBoutonConfigurerPourEPJ(EPJ);
 		EcranActiviteEtablissement ecranActiviteEtablissement =ecranLocaliteEtablissement.validerLocalitePasseractivite();
@@ -71,7 +71,7 @@ public class PremierTest {
 		String resultatPlanReglement = ecranPlanDeReglement.recupTotalHT();
 		String prixComptantModifier= prixComptant.replaceAll(".{4}$", "");
 		Assert.assertEquals(resultatPlanReglement, prixComptantModifier);
-		//Assert.assertTrue(resultatPlanReglement.contains(prixComptantModifier));
+
 		ecranPlanDeReglement.validerPlanDeReglement();
 		Thread.sleep(5000);
 		ecranPropositionCommerciales.supprimerPropal(nom_Propal);

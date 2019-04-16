@@ -29,6 +29,10 @@ public class EcranCatalogueProduits {
 	
 	@FindBy(xpath = "//span[.='Choisir cette offre']/parent::div")
 	private WebElement boutonChoisirOffre;
+
+	@FindBy(xpath = "//span[.='Configurer le produit']/parent::div")
+	private WebElement boutonConfigurerProduit;
+	
 	public EcranListeEtablissement selectionnerOffreSolutionEtReferencement() {
 		
 		itemSolutionPresenceReferencementPrio.click();
@@ -37,5 +41,11 @@ public class EcranCatalogueProduits {
 		return PageFactory.initElements(driver, EcranListeEtablissement.class);
 		
 	}
-	
+	public EcranConfigurerBoosterContact selectionnerBoosterContactt() {
+		
+		produitBoosterContact.click();
+		boutonConfigurerProduit.click();
+		return PageFactory.initElements(driver, EcranConfigurerBoosterContact.class);
+		
+	}
 }
