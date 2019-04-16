@@ -55,10 +55,17 @@ package test;
 			PageChoixEPJ pageChoixEPJ = pageConnexion.seConnecter(login, password);
 			EcranDashboardEPJ ecranDashboardEPJ= pageChoixEPJ.selectionnerContinuer(EPJ);
 			EcranPropositionCommerciales ecranPropositionCommerciales = ecranDashboardEPJ.selecionnerBoutonVoirProposition();
-			EcranCatalogueProduits ecranCatatalogueProduits = ecranPropositionCommerciales.selectionnerBouttonPLUS(nom_Propal);
+			//EcranCatalogueProduits ecranCatatalogueProduits = ecranPropositionCommerciales.selectionnerBouttonPLUS(nom_Propal);
 			
 			
 			
 			
 }
+		@After
+		public void finish() {
+			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			driver.get("http://g4929/logout/");
+			driver.findElement(By.xpath("//*[@id='user_login']")).isDisplayed();
+			driver.close();
+		}
 	}

@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -31,6 +32,8 @@ import utils.BoiteOutils;
 
 public class PremierTest {
 	protected static WebDriver driver;
+	
+	
 	@Before
 	public void debut() {
 		System.setProperty("webdriver.chrome.driver", "C:/chromedriver2_43/chromedriver.exe");
@@ -46,6 +49,7 @@ public class PremierTest {
 	}
 	@Test
 	public void run() throws FileNotFoundException, InterruptedException{
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		String login="newsirg13";
 		String password="jaunes12345!";
 		String EPJ="52093484";
@@ -60,10 +64,10 @@ public class PremierTest {
 		List<String> listeRefTableau = BoiteOutils._loadFile("src/main/java/filesRessources/listeEtablissementJDD1");
 		Assert.assertEquals(listeRefTableau, listRetournee);
 		EcranLocaliteEtablissement ecranLocaliteEtablissement =ecranListeEtablissement.selectionnerBoutonConfigurerPourEPJ(EPJ);
-		EcranActiviteEtablissement ecranActiviteEtablissement =ecranLocaliteEtablissement.validerLocalitePasseractivite();
-		EcranPresenceEtablissement ecranPresenceEtablissement =ecranActiviteEtablissement.validerActiviePasserPresence();
-		EcranReferencementEtablissement ecranReferencementEtablissement =ecranPresenceEtablissement.validerPresencePasserReferencement();
-		EcranPanierEtablissement ecranPanierEtablissement =ecranReferencementEtablissement.validerReferencementPasserPanier();
+		EcranActiviteEtablissement ecranActiviteEtablissement =ecranLocaliteEtablissement.validerLocalitePasseractivite(wait);
+		EcranPresenceEtablissement ecranPresenceEtablissement =ecranActiviteEtablissement.validerActiviePasserPresence(wait);
+		EcranReferencementEtablissement ecranReferencementEtablissement =ecranPresenceEtablissement.validerPresencePasserReferencement(wait);
+		EcranPanierEtablissement ecranPanierEtablissement =ecranReferencementEtablissement.validerReferencementPasserPanier(wait);
 		String prixHTmensuel = ecranPanierEtablissement.recupPrixMensuelHT();
 		String prixComptant = ecranPanierEtablissement.recupPrixTotalComptantHT();
 		ecranPanierEtablissement.validerConfiguration();
@@ -80,12 +84,12 @@ public class PremierTest {
 		
 	}
 	
-	@After
-	public void finish() {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		driver.get("http://g4929/logout/");
-		driver.findElement(By.xpath("//*[@id='user_login']")).isDisplayed();
-		driver.close();
-	}
+//	@After
+//	public void finish() {
+//		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+//		driver.get("http://g4929/logout/");
+//		driver.findElement(By.xpath("//*[@id='user_login']")).isDisplayed();
+//		driver.close();
+//	}
 
 }
